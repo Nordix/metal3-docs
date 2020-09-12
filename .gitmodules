@@ -1,0 +1,8 @@
+[submodule "docs/book/src/cluster-api-provider-metal3"]
+	path = docs/book/src/cluster-api-provider-metal3
+	url = https://github.com/metal3-io/cluster-api-provider-metal3.git
+	branch = m3book
+[submodule "docs/book/src/baremetal-operator"]
+	path = docs/book/src/baremetal-operator
+	url = git@github.com:Nordix/baremetal-operator.git
+	branch = m3book

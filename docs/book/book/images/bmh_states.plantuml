@@ -1,0 +1,47 @@
+@startuml bmh_states
+
+scale 1200 width
+
+skinparam state {
+    FontColor          white
+    AttributeFontColor white
+    FontSize           17
+    AttributeFontSize  15
+    AttributeFontname  Droid Sans Mono
+    BackgroundColor    #527BC6
+    BorderColor        black
+    ArrowColor         #222266
+}
+
+created --> Unmanaged : BMC.*==""
+created --> Registering : BMC.*!=""
+Unmanaged --> Registering : BMC.*!=""
+Unmanaged --> [*] : !DeletionTimestamp.IsZero()
+state "Externally Provisioned" as ExtProv
+Registering --> ExtProv : exteranllyProvisioned
+Registering --> Error : registration error
+Registering --> [*] : !DeletionTimestamp.IsZero()
+Registering --> Inspecting : !exteranllyProvisioned && NeedsHardwarenInspection()
+Error --> Registering : (user edits settings)
+ExtProv --> Inspecting : !exteranllyProvisioned && NeedsHardwarenInspection()
+ExtProv --> MatchProfile : !exteranllyProvisioned && NeedsHardwarenProfile()
+ExtProv --> Ready : !exteranllyProvisioned
+ExtProv --> Deleting : !DeletionTimestamp.IsZero()
+Inspecting --> MatchProfile : done
+Inspecting --> [*] : !DeletionTimestamp.IsZero()
+MatchProfile --> [*] : !DeletionTimestamp.IsZero()
+MatchProfile --> Ready : done
+Ready --> Provisioning : NeedsProvisioning()
+Ready --> [*] : !DeletionTimestamp.IsZero()
+Ready --> ExtProv : externallyProvisioned
+Provisioning --> Error : provisining error
+Provisioning --> Deprovisioning : !DeletionTimestamp.IsZero()
+Provisioning --> Provisioned : done
+Error --> Provisioning : ?
+Error --> Deprovisioning : !DeletionTimestamp.IsZero()
+Deprovisioning --> Provisioning : NeedsProvisioning()
+Deprovisioning --> Deleting : !DeletionTimestamp.IsZero()
+Deprovisioning --> Ready : !NeedsProvisioning()
+Provisioned --> Deprovisioning : !DeletionTimestamp.IsZero()
+Provisioned --> Deprovisioning : NeedsProvisioning()
+@enduml
