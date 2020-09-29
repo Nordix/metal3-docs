@@ -1,0 +1,11 @@
+[book]
+authors = ["Metal³ Community"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Metal³ Book"
+
+[output.html]
+git-repository-url = "https://github.com/metal3-io"
+git-repository-icon = "fa-github"
+curly-quotes = true

@@ -1,0 +1,12 @@
+[submodule "docs/src/submodules/bmo"]
+	path = docs/src/submodules/bmo
+	url = https://github.com/Nordix/baremetal-operator.git
+	branch = m3book
+[submodule "docs/src/submodules/capm3"]
+	path = docs/src/submodules/capm3
+	url = https://github.com/Nordix/cluster-api-provider-metal3.git
+	branch = m3book
+[submodule "docs/src/submodules/dev-env"]
+	path = docs/src/submodules/dev-env
+	url = https://github.com/Nordix/metal3-dev-env.git
+	branch = m3book
