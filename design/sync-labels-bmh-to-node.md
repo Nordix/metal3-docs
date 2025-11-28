@@ -53,24 +53,20 @@ prefix. Labels placed on the BMH that match this prefix would be synchronized
 with the labels on the Node object. For example,
 
 ```yaml
-    kind: BareMetalHost
-    name: node-0
-    metadata:
-      labels:
-        my-prefix.foobar.io/rack: xyz-123
-        my-prefix.foobar.io/zone: security-level-0
-        some-other-prefix.blah.io/cow: moo
-    ...
-
-    ---
-    kind: Node
-    name: worker-node-0
-    metadata:
-      labels:
-        my-prefix.foobar.io/rack: xyz-123
-        my-prefix.foobar.io/zone: security-level-0
-    …
-
+kind: BareMetalHost
+name: node-0
+metadata:
+  labels:
+    my-prefix.foobar.io/rack: xyz-123
+    my-prefix.foobar.io/zone: security-level-0
+    some-other-prefix.blah.io/cow: moo
+---
+kind: Node
+name: worker-node-0
+metadata:
+  labels:
+    my-prefix.foobar.io/rack: xyz-123
+    my-prefix.foobar.io/zone: security-level-0
 ```
 
 It's assumed that labels beginning with the specified prefix(es) are owned by
@@ -144,7 +140,6 @@ name: test1
 spec:
   metal3-label-sync-prefixes: "my-prefix.foobar.io, my-prefix.kubernetes.io"
   metal3-label-sync-interval: "30s"
-...
 ```
 
 Alternatively, we can use an annotation on the Meal3Cluster:
@@ -310,14 +305,14 @@ In this approach, an annotation is added to a BMH, in addition to the labels
 to be synchronized, which reflects the prefixes to be utilized. For example,
 
 ```yaml
-  kind: BareMetalHost
-  metadata:
-    annotations:
-      metal3.io/label-prefixes: {"my-prefix.foobar.io",
-      "my-prefix.kubernetes.io"}
-    labels:
-      my-prefix.foobar.io/rack: xyz-123
-      my-prefix.kubernetes.io/zone: security-level-0
+kind: BareMetalHost
+metadata:
+  annotations:
+    metal3.io/label-prefixes: {"my-prefix.foobar.io",
+    "my-prefix.kubernetes.io"}
+  labels:
+    my-prefix.foobar.io/rack: xyz-123
+    my-prefix.kubernetes.io/zone: security-level-0
 ```
 
 A concern with this approach is consistency since the same annotation would
@@ -351,7 +346,6 @@ kind: BareMetalHost
 metadata:
   labels:
     metal3.io/baremetalhost-label-sync-profile: some-ns/label-sync-profile-0
-...
 ---
 kind: BareMetalHostLabelSyncProfile
 name: label-sync-profile-0
@@ -360,8 +354,8 @@ labelSelector:
   matchLabels:
     metal3.io/baremetalhost-label-sync-profile: some-ns/label-sync-profile-0
 prefixes:
-  - my-prefix.foobar.io
-  - my-prefix.kubernetes.io
+- my-prefix.foobar.io
+- my-prefix.kubernetes.io
 label-sync-interval: "30s"
 ```
 

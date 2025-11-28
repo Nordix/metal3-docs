@@ -68,12 +68,12 @@ kind: BMCEventSubscription
 metadata:
   name: worker-1-events
 spec:
-   hostName: ostest-worker-1
-   destination: https://events.apps.corp.example.com/webhook
-   context: “SomeUserContext”
-   httpHeadersRef:
-     name: some-secret-name
-     namespace: some-namespace
+  hostName: ostest-worker-1
+  destination: https://events.apps.corp.example.com/webhook
+  context: “SomeUserContext”
+  httpHeadersRef:
+    name: some-secret-name
+    namespace: some-namespace
 status:
   errorMessage: ""
   subscriptionID: aa618a32-9335-42bc-a04b-20ddeed13ade
