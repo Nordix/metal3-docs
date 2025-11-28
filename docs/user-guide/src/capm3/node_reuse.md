@@ -32,14 +32,13 @@ metadata:
   name: test1-controlplane
   namespace: metal3
 spec:
-  nodeReuse: True
+  nodeReuse: true
   template:
     spec:
       image:
-      ...
 ```
 
-There could be two Metal3MachineTemplate objects, one referenced by KubeadmControlPlane for control plane nodes, and the other by MachineDeployment for worker node. Before performing an upgrade, user must set `nodeReuse` field to **true** in the desired Metal3MachineTemplate object where hosts targeted to be reused. If left unchanged, by default, `nodeReuse` field is set to **false** resulting in no host reusing being performed in the workflow. If you would like to know more about the internals of controller logic, please check the original proposal for the feature [here](https://github.com/metal3-io/metal3-docs/blob/main/design/cluster-api-provider-metal3/node_reuse.md)
+There could be two Metal3MachineTemplate objects, one referenced by KubeadmControlPlane for control plane nodes, and the other by MachineDeployment for worker node. Before performing an upgrade, user must set `nodeReuse` field to **true** in the desired Metal3MachineTemplate object where hosts targeted to be reused. If left unchanged, by default, `nodeReuse` field is set to **false** resulting in no host reusing being performed in the workflow. If you would like to know more about the internals of controller logic, please check the original proposal for the feature [over here](https://github.com/metal3-io/metal3-docs/blob/main/design/cluster-api-provider-metal3/node_reuse.md)
 
 Once `nodeReuse` field is set to **true**, user has to make sure that scale-in feature is enabled as suggested above, and proceed with updating the desired fields in KubeadmControlPlane or MachineDeployment to start a rolling upgrade.
 

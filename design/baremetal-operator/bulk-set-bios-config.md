@@ -266,46 +266,46 @@ spec:
   versions:
   - name: v1alpha1
     schema:
-          spec:
-            description: HostFirmwareSettingsSpec defines the desired state
-            properties:
-              vendorSettings:
-                items:
-                  description: describes a setting whose value can be changed
-                  properties:
-                    name:
-                      description: Identifier for the Firmware setting.
-                      type: string
-                    value:
-                      description: Value of the Firmware setting.
-                      type: string
-                  required:
-                  - name
-                  - value
-                  type: object
-                type: array
-            type: object
-          status:
-            description: defines the observed state of HostFirmwareSettings
-            properties:
-              schemaReference:
-                  description: Reference to resource containing schema
+      spec:
+        description: HostFirmwareSettingsSpec defines the desired state
+        properties:
+          vendorSettings:
+            items:
+              description: describes a setting whose value can be changed
+              properties:
+                name:
+                  description: Identifier for the Firmware setting.
                   type: string
-              schemaNamespace:
-                  description: The namespace where the schema resource resides
+                value:
+                  description: Value of the Firmware setting.
                   type: string
-              settingsData:
-                items:
-                  description: describes current settings and their schema
-                  properties:
-                    name:
-                      description: Identifier for the Firmware setting.
-                      type: string
-                    value:
-                      description: Value of the Firmware setting.
-                      type: string
-                type: array
-            type: object
+              required:
+              - name
+              - value
+              type: object
+            type: array
+        type: object
+      status:
+        description: defines the observed state of HostFirmwareSettings
+        properties:
+          schemaReference:
+            description: Reference to resource containing schema
+            type: string
+          schemaNamespace:
+            description: The namespace where the schema resource resides
+            type: string
+          settingsData:
+            items:
+              description: describes current settings and their schema
+              properties:
+                name:
+                  description: Identifier for the Firmware setting.
+                  type: string
+                value:
+                  description: Value of the Firmware setting.
+                  type: string
+            type: array
+        type: object
 ```
 
 An example of the proposed CRD for `FirmwareSchema` is as follows:
@@ -324,62 +324,61 @@ spec:
   versions:
   - name: v1alpha1
     schema:
-          status:
-            description: The schema to use for HostFirmwareSettings
-            properties:
-                schemaIdentifier:
-                  description: Unique identifier for this schema, derived
-                               from a hash of the schema contents
+      status:
+        description: The schema to use for HostFirmwareSettings
+        properties:
+          schemaIdentifier:
+            description: Unique identifier for this schema, derived from a hash of the schema contents
+            type: string
+          schemaVendor:
+            description: The vendor that corresponds to this schema
+            type: string
+          schemaModel:
+            description: The model that corresponds to this schema
+            type: string
+          schema:
+            description: Vendor specific data describing each setting
+            items:
+              properties:
+                name:
+                  description: Identifier for the Firmware setting.
                   type: string
-                schemaVendor:
-                  description: The vendor that corresponds to this schema
-                  type: string
-                schemaModel:
-                  description: The model that corresponds to this schema
-                  type: string
-                schema:
-                      description: Vendor specific data describing each setting
+                allowable_values:
+                  description: The allowable value for Enumeration type
                   items:
-                    properties:
-                      name:
-                        description: Identifier for the Firmware setting.
-                        type: string
-                      allowable_values:
-                        description: The allowable value for Enumeration type
-                        items:
-                          type: string
-                          type: array
-                      attribute_type:
-                        description: The type of setting.
-                        enum:
-                        - Enumeration
-                        - String
-                        - Integer
-                        - Boolean
-                        - Password
-                        type: string
-                      lower_bound:
-                        description: The lowest value for an Integer type
-                        type: integer
-                      max_length:
-                        description: Maximum length for a String type
-                        type: integer
-                      min_length:
-                        description: Minimum length for a String type
-                        type: integer
-                      read_only:
-                        description: Whether or not this setting is read only
-                        type: boolean
-                      reset_required:
-                        description: Whether or not a reset is required
-                        type: boolean
-                      unique:
-                        description: Whether or not setting's value is unique
-                        type: boolean
-                      upper_bound:
-                        description: The highest value for an Integer type
-                        type: integer
-                    type: object
+                    type: string
+                    #type: array
+                attribute_type:
+                  description: The type of setting.
+                  enum:
+                  - Enumeration
+                  - String
+                  - Integer
+                  - Boolean
+                  - Password
+                  type: string
+                lower_bound:
+                  description: The lowest value for an Integer type
+                  type: integer
+                max_length:
+                  description: Maximum length for a String type
+                  type: integer
+                min_length:
+                  description: Minimum length for a String type
+                  type: integer
+                read_only:
+                  description: Whether or not this setting is read only
+                  type: boolean
+                reset_required:
+                  description: Whether or not a reset is required
+                  type: boolean
+                unique:
+                  description: Whether or not setting's value is unique
+                  type: boolean
+                upper_bound:
+                  description: The highest value for an Integer type
+                  type: integer
+              type: object
 ```
 
 ### Risks and Mitigations

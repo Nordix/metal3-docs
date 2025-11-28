@@ -1,0 +1,23 @@
+yaml-files:
+- '*.yaml'
+- '*.yml'
+- '.yamllint'
+
+ignore: |
+  docs/user-guide/src/**/*.yaml
+  docs/user-guide/src/**/*.yml
+  docs/user-guide/src/**/*.md
+  docs/user-guide/src/*.yaml
+  docs/user-guide/src/*.yml
+  docs/user-guide/src/*.md
+  docs/user-guide/src/
+
+rules:
+  trailing-spaces: enable
+  key-duplicates: enable
+  indentation:
+    spaces: 2
+    indent-sequences: false # Enforce k8s-style indentation
+    check-multi-line-strings: false
+  truthy:
+    allowed-values: [ 'true', 'false', 'yes', 'no', 'on' ]
