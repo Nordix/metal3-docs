@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-mkdir disk-images
+mkdir "${QUICK_START_BASE}/disk-images"
 
-pushd disk-images || exit
+pushd "${QUICK_START_BASE}/disk-images" || exit
 wget https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
 wget https://cloud-images.ubuntu.com/jammy/current/SHA256SUMS
 sha256sum --ignore-missing -c SHA256SUMS
@@ -15,6 +15,3 @@ qemu-img convert -f qcow2 -O raw CENTOS_10_NODE_IMAGE_K8S_v1.34.1.qcow2 CENTOS_1
 # Local cache of IPA
 wget https://tarballs.opendev.org/openstack/ironic-python-agent/dib/ipa-centos9-master.tar.gz
 popd || exit
-
-docker run --name image-server --rm -d -p 80:8080 \
-  -v "$(pwd)/disk-images:/usr/share/nginx/html" nginxinc/nginx-unprivileged
